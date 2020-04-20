@@ -1,0 +1,15 @@
+- [ ] da se pokrene main
+- da se iscrta soba 
+	* generiseanje sobe
+		+ generisanje neprijatelja
+	* crtanje sobe
+- da se iscta igrac
+- da se isrcatju neprijatelji
+
+- da se pomera igrac
+- da se pomeraju neprijatelji
+
+- udaranje neprijatelja
+- skor
+- gubitak healtha
+- game over
