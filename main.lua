@@ -7,6 +7,8 @@ function love.load()
 		['game_over'] = function() return game_over() end
 	} 
 	gStateMachine:change('start')
+	gSounds['music']:setLooping(true)
+	gSounds['music']:play()
 end
 
 function love.update(dt)

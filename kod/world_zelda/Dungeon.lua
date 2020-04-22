@@ -17,24 +17,6 @@ function Dungeon:init(player)
 	end)
 end
 
-
-function Dungeon:beginShifting()
-	self.shifting = true
-
-	self.nextRoom = Room(self.player)
-	gSounds['newRoom']:play()
-end
-
-
-function Dungeon:finishShifting()
-	self.cameraX = 0
-	self.cameraY = 0
-	self.shifting = false
-	self.currentRoom = self.nextRoom
-	self.nextRoom = nil
-end
-
-
 function Dungeon:update(dt)
 	if not self.shifting then
 		self.currentRoom:update(dt)
@@ -55,3 +37,22 @@ function Dungeon:render()
 		self.nextRoom:render()
 	end
 end
+
+
+function Dungeon:beginShifting()
+	self.shifting = true
+
+	self.nextRoom = Room(self.player)
+	gSounds['newRoom']:play()
+end
+
+
+function Dungeon:finishShifting()
+	self.cameraX = 0
+	self.cameraY = 0
+	self.shifting = false
+	self.currentRoom = self.nextRoom
+	self.nextRoom = nil
+end
+
+

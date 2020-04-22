@@ -31,3 +31,9 @@ function Idle_state:render()
     --local anim = self.entity.currentAnimation
     
 end
+
+function Idle_state:update(dt)
+end
+
+function Idle_state:exit()
+end

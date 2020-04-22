@@ -1,7 +1,7 @@
 
-Walk_state = Class{_includes = PrimarState}
+Walk_state = Class{_includes = PrimaryState}
 
-function Walk_state:init()
+function Walk_state:init(entity)
 
 end
 
@@ -15,4 +15,7 @@ end
 
 function Walk_state:render()
 
+end
+
+function Walk_state:exit()
 end

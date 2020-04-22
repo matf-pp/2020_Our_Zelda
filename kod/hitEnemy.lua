@@ -1,4 +1,3 @@
-
 hitEnemy = Class{}
 
 function hitEnemy:init(x, y, height, width)

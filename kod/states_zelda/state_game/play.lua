@@ -16,12 +16,12 @@ function play:init()
 
 	-- paramteri za stanja igraca
 	self.player.stateMachine = StateMachine {
-		['idle-state'] = function() PlayerIdleState() end,
-		['walk-state'] = function() PlayerWalkState() end,
-		['attack-state'] = function() PlayerAttackState() end,
+		['idle-state'] = function() Player_idle() end,
+		['walk-state'] = function() Player_walk() end,
+		['swing-sword'] = function() Player_swing() end,
 	}
 
-	self.player.changeState('idle-state')
+	self.player:changeState('idle-state')
 
 	self.dungeon = Dungeon(self.Player)
 	self.room = Room(self.Player)
