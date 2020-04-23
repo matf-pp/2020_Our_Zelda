@@ -42,7 +42,6 @@ function Entity:collides(target)
 		    self.y + self.height < target.y or self.y > target.y + target.height)
 end
 
-
 function Entity:damage(dmg)
 	self.health = self.heatlh - dmg
 end
@@ -62,7 +61,6 @@ end
 function Entity:processAI(params, dt)
 	self.stateMachine:processAI(params, dt)
 end
-
 
 function Entity:render(adjacentOffsetX, adjacentOffsetY)
 	self.x, self.y = self.x + (adjacentOffsetX or 0), self.y + (adjacentOffsetY or 0)

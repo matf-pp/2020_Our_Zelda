@@ -18,7 +18,7 @@ function play:init()
 	self.player.stateMachine = StateMachine {
 		['idle-state'] = function() Player_idle() end,
 		['walk-state'] = function() Player_walk() end,
-		['swing-sword'] = function() Player_swing() end,
+		['swing-sword'] = function() Player_swing() end
 	}
 
 	self.player:changeState('idle-state')

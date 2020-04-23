@@ -65,10 +65,10 @@ function Room:generateEntities()
 			health = 1
 		})
 		self.entities[i].stateMachine = StateMachine {
-			['walk'] = function() Walk_state(self.entities[i]) end,
-			['idle'] = function() Idle_state(self.entities[i]) end
+			['walk-state'] = function() Walk_state(self.entities[i]) end,
+			['idle-state'] = function() Idle_state(self.entities[i]) end
 		}
-		self.entities[i]:changeState('walk')	
+		self.entities[i]:changeState('idle-state')	
 	end
 end
 

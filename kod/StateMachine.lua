@@ -19,7 +19,11 @@ end
 function StateMachine:change(newState, stateParams)
 	assert(self.states[newState])
 	self.current:exit() -- zavrsimo trenutno stanje
+	print('Izmena stanja')
 	self.current = self.states[newState]()
+	print('Zavrsena izmena stanja')
+	print(newState)
+	print(self.current)
 	self.current:enter(stateParams)
 end
 

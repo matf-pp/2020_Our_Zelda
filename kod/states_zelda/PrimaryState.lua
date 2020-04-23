@@ -1,4 +1,3 @@
-
 PrimaryState = Class{}
 
 function PrimaryState:init() end

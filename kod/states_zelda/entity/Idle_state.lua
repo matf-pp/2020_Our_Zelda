@@ -1,5 +1,7 @@
-
 Idle_state = Class{_includes = PrimaryState}
+
+function Idle_state:enter(params)
+end
 
 function Idle_state:init(entity)
 
