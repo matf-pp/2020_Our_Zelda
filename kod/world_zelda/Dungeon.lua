@@ -17,6 +17,28 @@ function Dungeon:init(player)
 	end)
 end
 
+function Dungeon:update(dt)
+	if not self.shifting then
+		self.currentRoom:update(dt)
+	else
+		self.player.currentAnimation:update(dt)
+	end	
+end
+
+
+function Dungeon:render()
+	if self.shifting then
+		love.graphics.translate(-math.floor(self.cameraX), -math.floor(self.cameraY))
+		--print('NEW ROOM', 0,0, 1,1,0,0,0,0)
+	end
+	
+	self.currentRoom:render()
+	
+	if self.nextRoom then
+		self.nextRoom:render()
+	end
+end
+
 
 function Dungeon:beginShifting()
 	self.shifting = true
@@ -35,23 +57,3 @@ function Dungeon:finishShifting()
 end
 
 
-function Dungeon:update(dt)
-	if not self.shifting then
-		self.currentRoom:update(dt)
-	else
-		self.player.currentAnimation:update(dt)
-	end	
-end
-
-
-function Dungeon:render()
-	if self.shifting then
-		love.graphics.print('NEW ROOM', 0,0, 1,1,0,0,0,0)
-	end
-	
-	self.currentRoom:render()
-	
-	if self.nextRoom then
-		self.nextRoom:render()
-	end
-end

@@ -1,11 +1,12 @@
-
 Idle_state = Class{_includes = PrimaryState}
+
+
 
 function Idle_state:init(entity)
 
     self.entity = entity
 
-    self.changeAnimation('idle-' .. self.entity.direction)
+    self.entity:changeAnimation('idle-' .. self.entity.direction)
 
     --AI cekanje
     self.waitDuration = 0
@@ -13,10 +14,19 @@ function Idle_state:init(entity)
 
 end
 
+function Idle_state:enter(params)
+end
+
+function Idle_state:exit()
+end
+
+function Idle_state:update(dt)
+end
+
 function Idle_state:processAI(params, dt)
 
     if self.waitDuration == 0 then
-        self.waitDuration = math.random(6)
+        self.waitDuration = math.random(5)
     else 
         self.waitTimer = self.waitTimer + dt
 
@@ -28,6 +38,12 @@ end
 
 function Idle_state:render()
 
-    --local anim = self.entity.currentAnimation
+    local anim = self.entity.currentAnimation
+    love.graphics.draw(gTextures[anim.texture], gFrames[anim.texture][anim:getCurrentFrame()],
+        math.floor(self.entity.x - self.entity.offsetX), math.floor(self.entity.y- self.entity.offsetY))
     
 end
+
+
+
+

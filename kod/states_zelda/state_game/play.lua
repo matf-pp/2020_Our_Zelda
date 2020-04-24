@@ -14,17 +14,17 @@ function play:init()
 		offsetY = 5
 	}
 
+	self.dungeon = Dungeon(self.Player)
+	self.currentRoom = Room(self.Player)
+
 	-- paramteri za stanja igraca
 	self.player.stateMachine = StateMachine {
-		['idle-state'] = function() PlayerIdleState() end,
-		['walk-state'] = function() PlayerWalkState() end,
-		['attack-state'] = function() PlayerAttackState() end,
+		['walk'] = function() return Player_walk(self.player, self.dungeon) end,
+		['idle'] = function() return Player_idle(self.player) end,
+		['swing-sword'] = function() return Player_swing(self.player, self.dungeon) end
 	}
 
-	self.player.changeState('idle-state')
-
-	self.dungeon = Dungeon(self.Player)
-	self.room = Room(self.Player)
+	self.player:changeState('idle')
 end
 
 function play:enter(params)

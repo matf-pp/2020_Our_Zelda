@@ -1,5 +1,9 @@
 Player_walk = Class{_includes = Walk_state}
 
+
+function Player_walk:enter(params)
+end
+
 function Player_walk:init(player, dungeon)
     self.player = player
     self.dungeon = dungeon

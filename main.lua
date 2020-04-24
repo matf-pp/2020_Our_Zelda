@@ -6,10 +6,18 @@ function love.load()
 		['play'] = function() return play() end,
 		['game_over'] = function() return game_over() end
 	} 
+
 	gStateMachine:change('start')
+
+	gSounds['music']:setLooping(true)
+	gSounds['music']:play()
+
+	--love.keyboard.keysPressed() = {}
+
 end
 
 function love.update(dt)
+	Timer.update(dt)
 	gStateMachine:update(dt)
 end
 
