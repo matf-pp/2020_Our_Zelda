@@ -120,7 +120,7 @@ function Room:render()
 	for y = 1, self.height do
 		for x = 1, self.width do
 			local tile = self.tiles[y][x]
-			love.graphics.draw(gTextures['tiles'], gFrames['tiles'][tile.id],
+			love.graphics.draw(gTextures['tiles'], gTextures['tiles'][tile.id],
 					   (x-1) * TILE_SIZE + self.adjacentOffsetX, 
 					   (y-1) * TILE_SIZE + self.adjacentOffsetY)
 		end
