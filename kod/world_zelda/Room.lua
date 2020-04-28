@@ -63,7 +63,6 @@ function Room:generateWallsAndFloors()
 				id = TILE_TOP_R_CORNER
 			elseif x == self.width and y == self.height then
 				id = TILE_BOTTOM_R_CORNER
-
 			elseif x == 1 then
 				id = TILE_L_WALLS[math.random(#TILE_L_WALLS)]
 			elseif x == self.width then
@@ -95,6 +94,30 @@ function Room:update(dt)
 	-- update svih neprijatelja
 	for i = #self.entities, 1, -1 do
 		local ent = self.entities[i]
+		table.insert(self.entities, Entity{
+			anims = ENTITY_DEFS[type].anims,
+			walkSpeed = ENTITY_DEFS[type].walkSpeed or 20,
+			x = math.random(TILE_SIZE, GAME_WIDTH - TILE_SIZE),
+			y = math.random(TILE_SIZE, GAME_HEIGHT - TILE_SIZE),
+			width = 16,
+			height = 16,
+			health = 1
+		})
+		self.entities[i].stateMachine = StateMachine {
+			['walk-state'] = function() Walk_state(self.entities[i]) end,
+			['idle-state'] = function() Idle_state(self.entities[i]) end
+		}
+		self.entities[i]:changeState('idle-state')	
+	end
+end
+
+
+function Room:update(dt)
+	self.player:update(dt)
+	
+	-- update svih neprijatelja
+	for i = #self.entities, 1, -1 do
+		local ent = entities[i]
 		
 		if ent.health <= 0 then
 			ent.dead = true

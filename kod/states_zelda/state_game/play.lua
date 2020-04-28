@@ -14,8 +14,6 @@ function play:init()
 		offsetY = 5
 	}
 
-	self.dungeon = Dungeon(self.Player)
-	self.currentRoom = Room(self.Player)
 
 	-- paramteri za stanja igraca
 	self.player.stateMachine = StateMachine {
@@ -25,6 +23,8 @@ function play:init()
 	}
 
 	self.player:changeState('idle')
+	self.dungeon = Dungeon(self.Player)
+	self.room = Room(self.Player)
 end
 
 function play:enter(params)

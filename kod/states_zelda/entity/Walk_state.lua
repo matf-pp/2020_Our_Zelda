@@ -8,6 +8,16 @@ function Walk_state:init(entity, dungeon)
 
 	self.entity:changeAnimation('walk-down')
 
+function Walk_state:enter(params)
+	
+end
+
+function Walk_state:init(entity, dungeon)
+	self.entity = entity
+	self.dungeon = dungeon
+
+	self.entity:changeAnimation('walk-down')
+
 	self.moveDuration = 0
 	self.movementTimer = 0
 
@@ -71,6 +81,7 @@ function Walk_state:processAI(params, dt)
 	end
 
 	self.movementTimer = self.movementTimer + dt
+	end
 end
 
 function Walk_state:render()
@@ -79,4 +90,5 @@ function Walk_state:render()
 			math.floor(self.entity.x), math.floor(self.entity.y))
 end
 
-
+function Walk_state:exit()
+end

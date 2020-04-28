@@ -79,4 +79,6 @@ function Player_swing:render()
     love.graphics.draw(gTextures[anim.texture], gFrames[anim.texture][anim:getCurrentFrame()],
         math.floor(self.player.x - self.player.offsetX), math.floor(self.player.y - self.player.offsetY))
         
+    --local anim = self.player.currentAnimation
+
 end

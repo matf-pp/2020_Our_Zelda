@@ -1,6 +1,7 @@
 Idle_state = Class{_includes = PrimaryState}
 
-
+function Idle_state:enter(params)
+end
 
 function Idle_state:init(entity)
 
@@ -44,6 +45,8 @@ function Idle_state:render()
     
 end
 
+function Idle_state:update(dt)
+end
 
-
-
+function Idle_state:exit()
+end
