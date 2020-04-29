@@ -4,8 +4,15 @@ function Enemy:init()
     self.dim = 20
     self.width = 20
     self.height = 20
+    -- ne sme neprijatelj da se pojavi na mestu gde je igrac jer ce ga ostetiti
+    -- trazimo koordinate takve  da se 100px oko igraca
     self.x = math.random(TILE_WIDTH + 20, room.mapWidth * (TILE_WIDTH-1) - self.width)
     self.y = math.random(TILE_HEIGHT + 20, room.mapHeight * (TILE_HEIGHT-1) - self.height)
+    while math.sqrt(math.abs(self.x - PLAYER_START_X) * math.abs(self.x - PLAYER_START_X) +
+                    math.abs(self.y - PLAYER_START_Y) * math.abs(self.y - PLAYER_START_Y)) < 70 do -- merimo distancu od starta igraca
+        self.x = math.random(TILE_WIDTH + 20, room.mapWidth * (TILE_WIDTH-1) - self.width)
+        self.y = math.random(TILE_HEIGHT + 20, room.mapHeight * (TILE_HEIGHT-1) - self.height)
+    end
     self.img = love.graphics.newImage('grafika/troll_m.png')
     self.health = ENEMY_HEALTH
     self.speed = ENEMY_SPEED
@@ -16,7 +23,7 @@ end
 
 function Enemy:update(dt)
     self.walking_time = self.walking_time + dt
-    if self.walking_time >= 1 then
+    if self.walking_time >= ENEMY_WALK_TIME then
         -- vratim tajmer na nulu
         self.walking_time = 0
         -- odaberemo novi nasumican pravac

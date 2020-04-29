@@ -4,14 +4,14 @@ Player = Class{}
 
 
 function Player:init()
-    self.x = 200
-    self.y = 200
+    self.x = PLAYER_START_X
+    self.y = PLAYER_START_Y
     self.yspeed = 4
     self.xspeed = 4
     self.dim = 20
-    self.width = 20
+    self.width = 16
     self.height = 20
-    self.direction = 'none'
+    self.direction = 'up'
     self.img = love.graphics.newImage('grafika/troll_m.png')
     self.health = PLAYER_HEALTH
 end
@@ -41,7 +41,20 @@ function Player:update(dt)
 end
 
 function Player:draw() 
-    love.graphics.draw(self.img, self.x, self.y, 0, 1, 1, 1)
+    -- crtamo odgovarajucu sliku zavisno od smera kretanja
+    local quad_id = nil
+    if self.direction == 'up' then
+        quad_id = PLAYER_UP_TILE
+    elseif self.direction == 'down' then
+        quad_id = PLAYER_DOWN_TILE
+    elseif self.direction == 'left' then
+        quad_id = PLAYER_LEFT_TILE
+    elseif self.direction == 'right' then
+        quad_id = PLAYER_RIGHT_TILE
+    end
+
+    love.graphics.draw(playerImg, player_quads[quad_id], 
+                      self.x, self.y)
 end
 
 function Player:collides(target)
