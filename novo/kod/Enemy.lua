@@ -13,11 +13,12 @@ function Enemy:init()
         self.x = math.random(TILE_WIDTH + 20, room.mapWidth * (TILE_WIDTH-1) - self.width)
         self.y = math.random(TILE_HEIGHT + 20, room.mapHeight * (TILE_HEIGHT-1) - self.height)
     end
-    self.img = love.graphics.newImage('grafika/troll_m.png')
+    --self.img = love.graphics.newImage('grafika/troll_m.png')
     self.health = ENEMY_HEALTH
     self.speed = ENEMY_SPEED
     self.direction = ENEMY_DIRECTIONS[math.random(#ENEMY_DIRECTIONS)]
     self.walking_time = 0
+    self.dead = false
     
 end
 
@@ -79,4 +80,14 @@ function Enemy:draw()
     end
     love.graphics.draw(enemyImg, enemy_quads[quad_id], 
                       self.x, self.y)
+end
+
+
+function Enemy:collides(target)
+    return not (self.x + self.width < target.x or self.x > target.x + target.width or
+                self.y + self.height < target.y or self.y > target.y + target.height)
+end
+
+function Enemy:damage(dmg)
+    self.heatlh = self.health - dmg
 end

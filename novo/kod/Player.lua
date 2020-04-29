@@ -6,18 +6,32 @@ Player = Class{}
 function Player:init()
     self.x = PLAYER_START_X
     self.y = PLAYER_START_Y
-    self.yspeed = 4
-    self.xspeed = 4
+    self.yspeed = 2
+    self.xspeed = 2
     self.dim = 20
-    self.width = 16
+    self.width = 20
     self.height = 20
     self.direction = 'up'
-    self.img = love.graphics.newImage('grafika/troll_m.png')
+    --self.img = love.graphics.newImage('grafika/troll_m.png')
     self.health = PLAYER_HEALTH
+    self.hb = nil
+    self.attacking = false
+    self.attack_timer = 0
+    self.attack_cooldown = ATTACK_COOLDOWN
 end
 
 
 function Player:update(dt) 
+    if self.attacking == true then
+        self.attack_timer = self.attack_timer + dt
+    end
+
+    if self.attack_timer >= self.attack_cooldown then
+        self.attacking = false
+        self.attack_timer = 0
+        self.hb = nil
+    end
+
     if love.keyboard.isDown('up') and self.y > 0 then
         self.direction = 'up'
         self.y = self.y - self.yspeed
@@ -33,14 +47,48 @@ function Player:update(dt)
     and self.x > 0 then
         self.direction = 'left'
         self.x = self.x - self.xspeed
+    elseif love.keyboard.isDown('space') then
+        local direction = self.direction
+        local hitboxX, hitboxY, hitboxWidth, hitboxHeight
+
+        if direction == 'left' then
+            hitboxWidth = 8
+            hitboxHeight = 16
+            hitboxX = self.x - hitboxWidth
+            hitboxY = self.y + 2
+        elseif direction == 'right' then
+            hitboxWidth = 8
+            hitboxHeight = 16
+            hitboxX = self.x + self.width
+            hitboxY = self.y + 2
+        elseif direction == 'up' then
+            hitboxWidth = 16
+            hitboxHeight = 8
+            hitboxX = self.x
+            hitboxY = self.y - hitboxHeight
+        else
+            hitboxWidth = 16
+            hitboxHeight = 8
+            hitboxX = self.x
+            hitboxY = self.y + self.height
+        end
+        self.hb = HitBox(hitboxX, hitboxY, hitboxWidth, hitboxHeight)
+        self.attacking = true
     elseif love.keyboard.isDown( 'escape') then
         love.event.quit()
-    elseif love.keyboard.isDown('j') then
-        room:generate()
     end
 end
 
 function Player:draw() 
+    local player_quads = nil
+    local playerImg = nil
+    if self.attacking then
+        player_quads = player_attack_quads
+        playerImg = playerAttacImg
+    else
+        player_quads = player_walk_quads
+        playerImg = playerWalkImg
+    end
     -- crtamo odgovarajucu sliku zavisno od smera kretanja
     local quad_id = nil
     if self.direction == 'up' then
@@ -54,6 +102,11 @@ function Player:draw()
     end
     love.graphics.draw(playerImg, player_quads[quad_id], 
                       self.x, self.y)
+
+    if self.hb ~= nil then
+        self.hb:draw()
+        print('attack')
+    end
 end
 
 function Player:collides(target)
@@ -62,6 +115,8 @@ function Player:collides(target)
     return not (self.x + self.width < target.x or self.x > target.x + target.width or
                 selfY + selfHeight < target.y or selfY > target.y + target.height)
 end
+
+
 
 function Player:damage(dmg)
     self.health = self.health - dmg

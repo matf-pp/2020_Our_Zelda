@@ -50,21 +50,37 @@ TILE_BOTTOM_WALLS = {79, 80, 81}
 TILE_LEFT_WALLS = {77, 96, 115}
 TILE_RIGHT_WALLS = {78, 97, 116}
 
+-- Game podaci
+LEVEL_DIFFICULTY = 1
+
 -- Player  - GRAFIKA I PODACI
-PLAYER_HEALTH = 1
+PLAYER_HEALTH = 3 * LEVEL_DIFFICULTY 
 PLAYER_START_X = 200
 PLAYER_START_Y = 200
+ATTACK_COOLDOWN = 0.2 -- vreme koliko traje udarac
 
 PLAYER_TILE_WIDTH = 20
 PLAYER_TILE_HEIGHT = 20
-playerImg = love.graphics.newImage('grafika/char_walk.png')
+playerWalkImg = love.graphics.newImage('grafika/char_walk.png')
 quadCounter = 1
-player_quads = {}
-for y = 0, playerImg:getHeight()/PLAYER_TILE_HEIGHT - 1 do
-    for x = 0, playerImg:getWidth()/PLAYER_TILE_WIDTH - 1 do
-        player_quads[quadCounter] = love.graphics.newQuad(x*PLAYER_TILE_WIDTH, y*PLAYER_TILE_HEIGHT, 
+player_walk_quads = {}
+for y = 0, playerWalkImg:getHeight()/PLAYER_TILE_HEIGHT - 1 do
+    for x = 0, playerWalkImg:getWidth()/PLAYER_TILE_WIDTH - 1 do
+        player_walk_quads[quadCounter] = love.graphics.newQuad(x*PLAYER_TILE_WIDTH, y*PLAYER_TILE_HEIGHT, 
                                                     PLAYER_TILE_WIDTH, PLAYER_TILE_HEIGHT, 
-                                                    playerImg:getDimensions())
+                                                    playerWalkImg:getDimensions())
+        quadCounter = quadCounter + 1
+    end
+end
+
+playerAttackImg = love.graphics.newImage('grafika/char_attack.png')
+quadCounter = 1
+player_attack_quads = {}
+for y = 0, playerAttackImg:getHeight()/PLAYER_TILE_HEIGHT - 1 do
+    for x = 0, playerAttackImg:getWidth()/PLAYER_TILE_WIDTH - 1 do
+        player_attack_quads[quadCounter] = love.graphics.newQuad(x*PLAYER_TILE_WIDTH, y*PLAYER_TILE_HEIGHT, 
+                                                    PLAYER_TILE_WIDTH, PLAYER_TILE_HEIGHT, 
+                                                    playerAttackImg:getDimensions())
         quadCounter = quadCounter + 1
     end
 end
@@ -77,7 +93,7 @@ PLAYER_RIGHT_TILE = 5
 -- Enemy - GRAFIKA I PODACI
 ENEMY_HEALTH = 1
 ENEMY_SPEED = 1
-ENEMY_WALK_TIME= 1
+ENEMY_WALK_TIME = 1
 ENEMY_DIRECTIONS = {'up', 'down', 'left', 'right'}
 
 ENEMY_TILE_WIDTH = 20

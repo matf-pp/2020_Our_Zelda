@@ -6,12 +6,13 @@ function Room:init(player)
     self.tiles = {}
     self.tileWidth = TILE_WIDTH
     self.tileHeight = TILE_HEIGHT
-    self.mapWidth = 32 
+    self.mapWidth = 32
     self.mapHeight = 32
     self.pixlesX = self.tileWidth * self.mapWidth
     self.pixlesY = self.tileHeight * self.mapHeight
-    self.enemy_count = 10
+    self.enemy_count = LEVEL_DIFFICULTY * 10
     self.player = player
+    self.enemies = {}
 end
 
 function Room:generate() 
@@ -45,24 +46,42 @@ function Room:generate()
     end
 
     -- making enemies
-    enemies = {}
+     self.enemies = {}
 
     for i = 1, self.enemy_count do 
-        enemies[i] = Enemy{}
+        self.enemies[i] = Enemy{}
     end
 end
 
 function Room:update(dt)
-    for i = 1, self.enemy_count do
-        if enemies[i].health <= 0 then
-            enemies[i].dead = true
-        elseif not enemies[i].dead then
-            enemies[i]:update(dt)
+
+    -- proveravamo helath-e neprijatelja
+    for i = 1, #self.enemies do
+        if self.enemies[i].health <= 0 then
+            self.enemies[i].dead = true
+        elseif not self.enemies[i].dead then
+            self.enemies[i]:update(dt)
         end
 
-        if not enemies[i].dead and self.player:collides(enemies[i]) then
+        -- provereva collison neprijatelja i igraca
+        if not self.enemies[i].dead and self.player:collides(self.enemies[i]) then
             -- TODO pusti zvuk
             self.player:damage(1)
+        end
+
+        -- provera collision-a neprijatelja i maca
+        -- ako igrac napada
+        if self.player.attacking == true then
+            -- proverimo da li trenutni hitbox udara nekog zivog neprijatelja
+            for i = 1, #self.enemies do
+                if not self.enemies[i].dead then
+                    if self.enemies[i]:collides(self.player.hb) then
+                        self.enemies[i]:damage(10)
+                        print('enemy hurt')
+                        -- TODO pustiti zvcni efekat povredjenog neprijatelja
+                    end
+                end
+            end
         end
     end
 end
@@ -76,11 +95,11 @@ function Room:draw()
         end
     end
 
-    for i = 1, self.enemy_count do
-        if enemies[i].health <= 0 then
-            enemies[i].dead = true
-        elseif not enemies[i].dead then
-            enemies[i]:draw()
+    for i = 1, #self.enemies do
+        if self.enemies[i].health <= 0 then
+            self.enemies[i].dead = true
+        elseif not self.enemies[i].dead then
+            self.enemies[i]:draw()
         end
     end
 

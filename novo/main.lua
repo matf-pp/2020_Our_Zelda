@@ -1,5 +1,6 @@
 Class = require 'lib/class'
 require 'kod/Consts'
+require 'kod/HitBox'
 require 'kod/Player'
 require 'kod/Room'
 require 'kod/Enemy'
@@ -7,7 +8,7 @@ require 'kod/StateMachine'
 
 function love.load()
     music = love.audio.newSource("muzika/music.mp3", "stream")
-    music:play()
+    ---music:play()
     love.graphics.setBackgroundColor(1,1,1,1)
     player = Player{}
     room = Room(player)
