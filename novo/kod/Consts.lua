@@ -79,3 +79,24 @@ ENEMY_HEALTH = 1
 ENEMY_SPEED = 1
 ENEMY_WALK_TIME= 1
 ENEMY_DIRECTIONS = {'up', 'down', 'left', 'right'}
+
+ENEMY_TILE_WIDTH = 20
+ENEMY_TILE_HEIGHT = 20
+
+
+enemyImg = love.graphics.newImage('grafika/enemy_walk.png')
+quadCounter = 1
+enemy_quads = {}
+for y = 0, enemyImg:getHeight()/ENEMY_TILE_HEIGHT - 1 do
+    for x = 0, enemyImg:getWidth()/ENEMY_TILE_WIDTH - 1 do
+        enemy_quads[quadCounter] = love.graphics.newQuad(x*ENEMY_TILE_WIDTH, y*ENEMY_TILE_HEIGHT, 
+                                                    ENEMY_TILE_WIDTH, ENEMY_TILE_HEIGHT, 
+                                                    enemyImg:getDimensions())
+        quadCounter = quadCounter + 1
+    end
+end  
+
+ENEMY_UP_TILE = 9
+ENEMY_DOWN_TILE = 1 
+ENEMY_LEFT_TILE = 13
+ENEMY_RIGHT_TILE = 5

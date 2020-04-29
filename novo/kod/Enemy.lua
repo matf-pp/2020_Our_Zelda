@@ -67,14 +67,16 @@ end
 
 function Enemy:draw() 
     -- crtamo odgovarajucu sliku zavisno od smera kretanja
+    local quad_id = nil
     if self.direction == 'up' then
-        love.graphics.draw(self.img, self.x, self.y, 0, 1, 1, 1)
+        quad_id = ENEMY_UP_TILE
     elseif self.direction == 'down' then
-        love.graphics.draw(self.img, self.x, self.y, 0, 1, 1, 1)
+        quad_id = ENEMY_DOWN_TILE
     elseif self.direction == 'left' then
-        love.graphics.draw(self.img, self.x, self.y, 0, 1, 1, 1)
+        quad_id = ENEMY_LEFT_TILE
     elseif self.direction == 'right' then
-        love.graphics.draw(self.img, self.x, self.y, 0, 1, 1, 1)
+        quad_id = ENEMY_RIGHT_TILE
     end
-    
+    love.graphics.draw(enemyImg, enemy_quads[quad_id], 
+                      self.x, self.y)
 end

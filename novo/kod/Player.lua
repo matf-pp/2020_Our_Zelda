@@ -52,7 +52,6 @@ function Player:draw()
     elseif self.direction == 'right' then
         quad_id = PLAYER_RIGHT_TILE
     end
-
     love.graphics.draw(playerImg, player_quads[quad_id], 
                       self.x, self.y)
 end
