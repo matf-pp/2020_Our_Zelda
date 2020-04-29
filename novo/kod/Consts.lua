@@ -3,11 +3,16 @@ print('[+] Consts module loaded')
 -- img/tilesheet.png
 -- width: 304px
 -- height: 208px
+
+
+-- za grafiku
+
 TILE_WIDTH = 16
 TILE_HEIGHT = 16
 
 
 tileTexture = love.graphics.newImage('grafika/tilesheet.png')
+bgImage = love.graphics.newImage('grafika/background.png')
 spriteBatch = love.graphics.newSpriteBatch(tileTexture, TILE_WIDTH*TILE_HEIGHT)
 
 sheetWidth = 304 / TILE_WIDTH
@@ -23,14 +28,14 @@ for y = 0, sheetHeight - 1 do
                                                     304, 208)
         quadCounter = quadCounter + 1
     end
-end
+end 
 
 TILE_TOP_LEFT_CORNER = 4
 TILE_TOP_RIGHT_CORNER = 5
 TILE_BOTTOM_LEFT_CORNER = 23
 TILE_BOTTOM_RIGHT_CORNER = 24
 
-TILE_EMPTY = 19
+--TILE_EMPTY = 19
 
 TILE_FLOORS = {
     7, 8, 9, 10, 11, 12, 13,
@@ -44,3 +49,10 @@ TILE_TOP_WALLS = {58, 59, 60}
 TILE_BOTTOM_WALLS = {79, 80, 81}
 TILE_LEFT_WALLS = {77, 96, 115}
 TILE_RIGHT_WALLS = {78, 97, 116}
+
+-- Player
+PLAYER_HEALTH = 1
+
+-- Enemy
+ENEMY_HEALTH = 1
+ENEMY_DIRECTIONS = {'up', 'down', 'left', 'right'}

@@ -9,8 +9,11 @@ function Player:init()
     self.yspeed = 4
     self.xspeed = 4
     self.dim = 20
+    self.width = 20
+    self.height = 20
     self.direction = 'none'
     self.img = love.graphics.newImage('grafika/troll_m.png')
+    self.health = PLAYER_HEALTH
 end
 
 
@@ -39,4 +42,15 @@ end
 
 function Player:draw() 
     love.graphics.draw(self.img, self.x, self.y, 0, 1, 1, 1)
+end
+
+function Player:collides(target)
+    local selfY, selfHeight = self.y + self.height / 2, self.height - self.height / 2
+    
+    return not (self.x + self.width < target.x or self.x > target.x + target.width or
+                selfY + selfHeight < target.y or selfY > target.y + target.height)
+end
+
+function Player:damage(dmg)
+    self.health = self.health - dmg
 end

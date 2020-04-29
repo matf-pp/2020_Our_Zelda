@@ -2,7 +2,7 @@ print('[+] Room module loaded')
 
 Room = Class{}
 
-function Room:init()
+function Room:init(player)
     self.tiles = {}
     self.tileWidth = TILE_WIDTH
     self.tileHeight = TILE_HEIGHT
@@ -11,6 +11,7 @@ function Room:init()
     self.pixlesX = self.tileWidth * self.mapWidth
     self.pixlesY = self.tileHeight * self.mapHeight
     self.enemy_count = 10
+    self.player = player
 end
 
 function Room:generate() 
@@ -53,7 +54,16 @@ end
 
 function Room:update(dt)
     for i = 1, self.enemy_count do
-        enemies[i]:update(dt)
+        if enemies[i].health <= 0 then
+            enemies[i].dead = true
+        elseif not enemies[i].dead then
+            enemies[i]:update(dt)
+        end
+
+        if not enemies[i].dead and self.player:collides(enemies[i]) then
+            -- TODO pusti zvuk
+            self.player:damage(1)
+        end
     end
 end
 
@@ -67,7 +77,11 @@ function Room:draw()
     end
 
     for i = 1, self.enemy_count do
-        enemies[i]:draw()
+        if enemies[i].health <= 0 then
+            enemies[i].dead = true
+        elseif not enemies[i].dead then
+            enemies[i]:draw()
+        end
     end
 
 end

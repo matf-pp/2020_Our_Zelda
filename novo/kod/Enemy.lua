@@ -2,9 +2,13 @@ Enemy = Class{}
 
 function Enemy:init() 
     self.dim = 20
-    self.x = math.random(TILE_WIDTH + 20, room.mapWidth * (TILE_WIDTH-1) - self.dim)
-    self.y = math.random(TILE_HEIGHT + 20, room.mapHeight * (TILE_HEIGHT-1) - self.dim)
+    self.width = 20
+    self.height = 20
+    self.x = math.random(TILE_WIDTH + 20, room.mapWidth * (TILE_WIDTH-1) - self.width)
+    self.y = math.random(TILE_HEIGHT + 20, room.mapHeight * (TILE_HEIGHT-1) - self.height)
     self.img = love.graphics.newImage('grafika/troll_m.png')
+    self.health = ENEMY_HEALTH
+    self.direction = 'up'
     
 end
 
