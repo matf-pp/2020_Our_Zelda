@@ -24,8 +24,8 @@ function StateMachine:update(dt)
         if self.player.health <= 0 then
             self.currentState = 'game-over'
         end
-        self.room:update()
-        self.player:update()
+        self.room:update(dt)
+        self.player:update(dt)
     elseif self.currentState == 'game-over' then
         if love.keyboard.isDown('return') then
             -- update player-a na staro

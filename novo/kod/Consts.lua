@@ -55,4 +55,6 @@ PLAYER_HEALTH = 1
 
 -- Enemy
 ENEMY_HEALTH = 1
+ENEMY_SPEED = 1
+WALKING_TIME = 0
 ENEMY_DIRECTIONS = {'up', 'down', 'left', 'right'}
