@@ -41,7 +41,7 @@ function StateMachine:update(dt)
 
         if self.room.enemy_count == self.dead_enemies then
             self.dead_enemies = 0
-            self.player.health = PLAYER_HEALTH
+            --self.player.health = PLAYER_HEALTH
             self.player.x = PLAYER_START_X
             self.player.y = PLAYER_START_Y
 
@@ -66,6 +66,7 @@ function StateMachine:update(dt)
             self.player.y = PLAYER_START_Y
             -- pravimo novu sobu
             self.room = Room(player)
+            --self.room.player = player
             self.room:generate()
             -- prelazimo u play stanje
             self.currentState = 'play'
@@ -78,10 +79,13 @@ end
 function StateMachine:draw()
     if self.currentState == 'start' then
         love.graphics.draw(bgImage, 0, 0, 0)        
+        print('Pocetak')
     elseif self.currentState == 'play' then
+        print('Igra u toku')
         room:draw()
         player:draw()
     elseif self.currentState == 'game-over' then
+        print('Game Over')
         love.graphics.draw(bgImage, 0, 0, 0)
     end
 end

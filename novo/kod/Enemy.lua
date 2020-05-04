@@ -82,6 +82,10 @@ function Enemy:draw()
                       self.x, self.y)
 end
 
+function Enemy:drawBox()
+    love.graphics.rectangle("line", self.x + 10, self.y + 10, self.width + 10, self.height + 10)
+end
+
 
 function Enemy:collides(target)
     return not (self.x + self.width < target.x or self.x > target.x + target.width or

@@ -66,7 +66,9 @@ function Room:update(dt)
         -- provereva collison neprijatelja i igraca
         if not self.enemies[i].dead and self.player:collides(self.enemies[i]) then
             -- TODO pusti zvuk
-            self.player:damage(1)
+            if not self.player.attacking then -- da neprijatelj ne bi nanosio stetu dok igrac napada
+                self.player:damage(1)
+            end
         end
 
         -- provera collision-a neprijatelja i maca
@@ -87,22 +89,32 @@ function Room:update(dt)
 end
 
 function Room:draw()
-    for y = 1, self.mapHeight do
-        for x = 1, self.mapWidth do
-            id = self.tiles[y][x]
-            love.graphics.draw(tileTexture, quads[id], 
-                      (x-1)*self.tileWidth, (y-1)*self.tileHeight)
+    if #self.tiles ~= 0 and #self.enemies ~= 0 then -- crtamo samo ako ima nesto
+        for y = 1, self.mapHeight do
+            for x = 1, self.mapWidth do
+                id = self.tiles[y][x]
+                love.graphics.draw(tileTexture, quads[id], 
+                        (x-1)*self.tileWidth, (y-1)*self.tileHeight)
+            end
+        end
+   
+
+        for i = 1, #self.enemies do
+            if self.enemies[i].health <= 0 then
+                self.enemies[i].dead = true
+                self.enemies[i]:drawBox()
+            elseif not self.enemies[i].dead then
+                self.enemies[i]:draw()
+                self.enemies[i]:drawBox()
+            end
         end
     end
+end
 
-    for i = 1, #self.enemies do
-        if self.enemies[i].health <= 0 then
-            self.enemies[i].dead = true
-        elseif not self.enemies[i].dead then
-            self.enemies[i]:draw()
-        end
-    end
-
+function Room:destroy()
+    -- brisanje svih elemenata sobe
+    self.enemies = {}
+    self.tiles = {}
 end
 
 -- self.setTile = function(x, y, tile)

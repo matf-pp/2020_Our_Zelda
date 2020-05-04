@@ -80,11 +80,14 @@ function Player:update(dt)
 end
 
 function Player:draw() 
-    local player_quads = nil
-    local playerImg = nil
-    if self.attacking then
+
+    -- na osnovu toga da li igrac napada
+    -- crtamo odgovarajucu sliku
+    local player_quads
+    local playerImg
+    if self.attacking == true then
         player_quads = player_attack_quads
-        playerImg = playerAttacImg
+        playerImg = playerAttackImg
     else
         player_quads = player_walk_quads
         playerImg = playerWalkImg
@@ -104,7 +107,7 @@ function Player:draw()
                       self.x, self.y)
 
     if self.hb ~= nil then
-        self.hb:draw()
+        --self.hb:draw()
         print('attack')
     end
 end
