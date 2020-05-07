@@ -53,21 +53,21 @@ function Player:update(dt)
 
         if direction == 'left' then
             hitboxWidth = 8
-            hitboxHeight = 16
+            hitboxHeight = 20
             hitboxX = self.x - hitboxWidth
             hitboxY = self.y + 2
         elseif direction == 'right' then
             hitboxWidth = 8
-            hitboxHeight = 16
+            hitboxHeight = 20
             hitboxX = self.x + self.width
             hitboxY = self.y + 2
         elseif direction == 'up' then
-            hitboxWidth = 16
+            hitboxWidth = 20
             hitboxHeight = 8
             hitboxX = self.x
             hitboxY = self.y - hitboxHeight
         else
-            hitboxWidth = 16
+            hitboxWidth = 20
             hitboxHeight = 8
             hitboxX = self.x
             hitboxY = self.y + self.height

@@ -10,7 +10,7 @@ function Room:init(player)
     self.mapHeight = 32
     self.pixlesX = self.tileWidth * self.mapWidth
     self.pixlesY = self.tileHeight * self.mapHeight
-    self.enemy_count = LEVEL_DIFFICULTY * 10
+    self.enemy_count = LEVEL_DIFFICULTY * DIFFICULTY_FACTOR
     self.player = player
     self.enemies = {}
 end
@@ -46,7 +46,7 @@ function Room:generate()
     end
 
     -- making enemies
-     self.enemies = {}
+    -- self.enemies = {}
 
     for i = 1, self.enemy_count do 
         self.enemies[i] = Enemy{}
@@ -54,13 +54,13 @@ function Room:generate()
 end
 
 function Room:update(dt)
-
     -- proveravamo helath-e neprijatelja
     for i = 1, #self.enemies do
-        if self.enemies[i].health <= 0 then
-            self.enemies[i].dead = true
-        elseif not self.enemies[i].dead then
+        if self.enemies[i].health > 0 then
+            --print(i..' dead')
             self.enemies[i]:update(dt)
+        else --[[if not self.enemies[i].dead]] --then
+            self.enemies[i].dead = true
         end
 
         -- provereva collison neprijatelja i igraca
@@ -79,6 +79,8 @@ function Room:update(dt)
                 if not self.enemies[i].dead then
                     if self.enemies[i]:collides(self.player.hb) then
                         self.enemies[i]:damage(10)
+                        DEAD_ENEMIES = DEAD_ENEMIES + 1
+                        print('enemy'..i..'hurt, hp remaining: '..self.enemies[i].health)
                         print('enemy hurt')
                         -- TODO pustiti zvcni efekat povredjenog neprijatelja
                     end

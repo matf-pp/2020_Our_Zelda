@@ -14,7 +14,7 @@ function Enemy:init()
         self.y = math.random(TILE_HEIGHT + 20, room.mapHeight * (TILE_HEIGHT-1) - self.height)
     end
     --self.img = love.graphics.newImage('grafika/troll_m.png')
-    self.health = ENEMY_HEALTH
+    self.health = 1 -- ENEMY_HEALTH
     self.speed = ENEMY_SPEED
     self.direction = ENEMY_DIRECTIONS[math.random(#ENEMY_DIRECTIONS)]
     self.walking_time = 0
@@ -64,6 +64,8 @@ function Enemy:update(dt)
     elseif self.direction == 'right' then
         self.x = self.x + self.speed
     end
+
+    --print('enemy moved')
 end
 
 function Enemy:draw() 
@@ -83,7 +85,7 @@ function Enemy:draw()
 end
 
 function Enemy:drawBox()
-    love.graphics.rectangle("line", self.x + 10, self.y + 10, self.width + 10, self.height + 10)
+    love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 end
 
 
@@ -93,5 +95,6 @@ function Enemy:collides(target)
 end
 
 function Enemy:damage(dmg)
-    self.heatlh = self.health - dmg
+    -- self.heatlh = -100
+    self.dead = true
 end

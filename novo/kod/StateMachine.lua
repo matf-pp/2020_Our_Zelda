@@ -33,22 +33,22 @@ function StateMachine:update(dt)
         -- ako je player presao nivo
         -- prebojimo zive neprijatlje
         
-        for i = 1, self.room.enemy_count do
-            if self.room.enemies[i].dead == true then
-                self.dead_enemies = self.dead_enemies + 1
-            end
-        end
+        -- for i = 1, self.room.enemy_count do
+        --     if self.room.enemies[i].dead == true then
+        --         self.dead_enemies = self.dead_enemies + 1
+        --     end
+        -- end
 
-        if self.room.enemy_count == self.dead_enemies then
-            self.dead_enemies = 0
-            --self.player.health = PLAYER_HEALTH
+        if LEVEL_DIFFICULTY * DIFFICULTY_FACTOR == DEAD_ENEMIES then
+            DEAD_ENEMIES = 0
+            self.player.health = PLAYER_HEALTH
             self.player.x = PLAYER_START_X
             self.player.y = PLAYER_START_Y
 
             LEVEL_DIFFICULTY = LEVEL_DIFFICULTY + 1
-            self.room = Room(player)
-            --self.room.enemy_count = LEVEL_DIFFICULTY * 10
-            -- for i = 1, self.room.enemy_count do
+            --self.room = Room(player)
+            self.room.enemy_count = LEVEL_DIFFICULTY * DIFFICULTY_FACTOR
+            --for i = 1, self.room.enemy_count do
             --     enemies[i].dead = false
             -- end
             --self.room.enemies = {}
@@ -61,11 +61,12 @@ function StateMachine:update(dt)
     elseif self.currentState == 'game-over' then
         if love.keyboard.isDown('return') then
             -- update player-a na staro
+            DEAD_ENEMIES = 0
             self.player.health = PLAYER_HEALTH
             self.player.x = PLAYER_START_X
             self.player.y = PLAYER_START_Y
             -- pravimo novu sobu
-            self.room = Room(player)
+            --self.room = Room(player)
             --self.room.player = player
             self.room:generate()
             -- prelazimo u play stanje
@@ -81,9 +82,12 @@ function StateMachine:draw()
         love.graphics.draw(bgImage, 0, 0, 0)        
         print('Pocetak')
     elseif self.currentState == 'play' then
-        print('Igra u toku')
+        --print('Igra u toku')
         room:draw()
         player:draw()
+        love.graphics.print('Enemies dead: '..DEAD_ENEMIES, 20, 20)
+        love.graphics.print('Level: '..LEVEL_DIFFICULTY, 20, 30)
+        love.graphics.print('Player Health: '..self.player.health, 20, 40)
     elseif self.currentState == 'game-over' then
         print('Game Over')
         love.graphics.draw(bgImage, 0, 0, 0)
