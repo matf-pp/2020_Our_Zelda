@@ -3,6 +3,8 @@
 Our Zelda, igra rađena u Lua jeziku i framework-u love2d.
 ![game screenshots](grafika/cover.png)
 
+[gameplay video](https://streamable.com/k31zbl)
+
 # Opis
 Razvoj igre u framwork-u love2d od nule. Generisanje nivoa, programiranje igrača i neprijatelja.
 Dodavanje grafike, zvukova i fontova.
