@@ -17,6 +17,13 @@ Dodavanje grafike, zvukova i fontova.
 
 Preuzmite arhivu iz _releases_ otpakujte i pokrenite pokretanjem skripte `run.sh`.
 
+# Uputstvo za igru
+
+Igrač se pokreće na `strelice` udara na `space`.
+Jedan udarac ubija neprijatelja i jedan udarac ubija igrača.
+Kada ubijete sve neprijatelje prelazite na sledeći nivo.
+Cilj je preživeti što duže.
+
 # Prevođenje i pokretanje programa
 
 Program pokrece `love2d` framework.  
