@@ -1,23 +1,34 @@
-require 'kod/Deps'
+Class = require 'lib/class'
+require 'kod/Consts'
+require 'kod/HitBox'
+require 'kod/Player'
+require 'kod/Room'
+require 'kod/Enemy'
+require 'kod/StateMachine'
 
 function love.load()
-	gStateMachine = StateMachine {
-		['start'] = function() return Start() end,
-		['play'] = function() return play() end,
-		['game_over'] = function() return game_over() end
-	} 
-
-	gStateMachine:change('start')
-	gSounds['music']:setLooping(true)
-	gSounds['music']:play()
+    
+    music:setVolume(0.3)
+    music:play()
+    love.graphics.setBackgroundColor(1,1,1,1)
+    player = Player{}
+    room = Room(player)
+    room:generate()
+    stateMachine = StateMachine(room, player)
 end
 
 function love.update(dt)
-	Timer.update(dt)
-	gStateMachine:update(dt)
+    --room:update(dt)
+    --player:update(dt)
+    stateMachine:update(dt)
+end
+
+function love.keypressed(key)
+    print(key)
 end
 
 function love.draw()
-	gStateMachine:render()
+    --room:draw()
+    --player:draw()
+    stateMachine:draw()
 end
-
