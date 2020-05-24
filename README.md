@@ -9,7 +9,7 @@ Our Zelda, igra rađena u Lua jeziku i framework-u love2d.
 Razvoj igre u framwork-u love2d od nule. Generisanje nivoa, programiranje igrača i neprijatelja.
 Dodavanje grafike, zvukova i fontova.
 
-# Planirani jezici i tehnologije
+# Jezici i tehnologije
 
 - Lua
 - love2d
